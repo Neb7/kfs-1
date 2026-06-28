@@ -6,7 +6,7 @@
 /*   By: benpicar <benpicar@student.42mulhouse.fr > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 15:25:41 by benpicar          #+#    #+#             */
-/*   Updated: 2026/06/28 16:39:08 by benpicar         ###   ########.fr       */
+/*   Updated: 2026/06/28 17:55:59 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,15 @@ void kernel_main(void)
 	ft_bzero(g_screens, sizeof(g_screens));
 	g_screens[0].color = 0x0F;
 	g_screens[1].color = 0x24;
-	for (int i = 0; i < 25 * 80; i++)
-	{
-		((uint16_t *)g_screens[0].lines)[i] = (0x0F << 8) | ' ';
-		((uint16_t *)g_screens[1].lines)[i] = (0x24 << 8) | ' ';
-	}
+	// for (int i = 0; i < 25 * 80; i++)
+	// {
+	// 	((uint16_t *)g_screens[0].lines)[i] = (0x0F << 8) | ' ';
+	// 	((uint16_t *)g_screens[1].lines)[i] = (0x24 << 8) | ' ';
+	// }
+	ft_memset_short(g_screens[0].lines, 0x0F << 8 | ' '
+			, sizeof(g_screens[0].lines));
+	ft_memset_short(g_screens[1].lines, 0x24 << 8 | ' '
+			, sizeof(g_screens[1].lines));
 	enable_cursor(0, 15);
 	putchar('4');
 	putchar('2');
