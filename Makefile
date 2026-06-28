@@ -1,5 +1,5 @@
 NAME		:= kernel.bin
-ISO			:= kfs01.ixo
+ISO			:= kfs01.iso
 
 CC			:= gcc
 ASM			:= nasm
