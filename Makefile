@@ -96,6 +96,7 @@ run: iso
 	qemu-system-i386 -cdrom $(ISO) -no-reboot
 
 clean: 
+	rm -rf $(OBJS_DIR)
 	rm -f $(OBJ)
 
 fclean: clean
