@@ -6,7 +6,7 @@
 /*   By: benpicar <benpicar@student.42mulhouse.fr > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 03:28:15 by vsyutkin          #+#    #+#             */
-/*   Updated: 2026/06/28 17:54:54 by benpicar         ###   ########.fr       */
+/*   Updated: 2026/06/28 18:06:15 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	*ft_memset_short(void *s, int c, size_t n)
 	{
 		((long long *)s)[i] = c8;
 		i++;
-		n = n - sizeof(long long) / sizeof(unsigned short);
+		n = n - sizeof(long long);
 	}
 	i = i * sizeof(long long) / sizeof(unsigned short);
 	while (n > 0)
