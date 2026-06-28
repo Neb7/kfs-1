@@ -14,11 +14,54 @@ ASMFLAGS 	:= -f elf32
 
 LDFLAGS		:= -m elf_i386 -T linker.ld
 
-SRC_C		:= $(wildcard kernel/srcs/*.c) $(wildcard kernel/libft/*.c)
-SRC_ASM		:= $(wildcard kernel/*.asm)
 
-OBJ_C		:= $(SRC_C:.c=.o)
-OBJ_ASM		:= $(SRC_ASM:.asm=.o)
+SRCS_DIR	= kernel/
+
+SRCS_DIR_C	= srcs/
+SRC			= idt.c \
+			  kernel.c \
+			  vga.c \
+			  kprintf.c \
+			  pic.c
+
+SRCS_DIR_LIBFT	= libft/
+SRC_LIBFT	= ft_atoi.c \
+			  ft_bzero.c \
+			  ft_isalnum.c \
+			  ft_isalpha.c \
+			  ft_isascii.c \
+			  ft_isdigit.c \
+			  ft_isprint.c \
+			  ft_memchr.c \
+			  ft_memcmp.c \
+			  ft_memcpy.c \
+			  ft_memmove.c \
+			  ft_memset.c \
+			  ft_strchr.c \
+			  ft_striteri.c \
+			  ft_strlcat.c \
+			  ft_strlcpy.c \
+			  ft_strlen.c \
+			  ft_strncmp.c \
+			  ft_strnstr.c \
+			  ft_strrchr.c \
+			  ft_tolower.c \
+			  ft_toupper.c
+
+SRC_A		= boot.asm
+# SRC_C		:= $(wildcard kernel/srcs/*.c) $(wildcard kernel/libft/*.c)
+# SRC_ASM		:= $(wildcard kernel/*.asm)
+SRC_C		= $(addprefix $(SRCS_DIR_C), $(SRC))
+SRC_C		+= $(addprefix $(SRCS_DIR_LIBFT), $(SRC_LIBFT))
+
+SRCS_C		= $(addprefix $(SRCS_DIR), $(SRC_C))
+
+SRC_ASM		= $(addprefix $(SRCS_DIR), $(SRC_A))
+
+
+OBJS_DIR	:= .objs/
+OBJ_C		:= $(addprefix ${OBJS_DIR}, ${SRC_C:.c=.o})
+OBJ_ASM		:= $(addprefix ${OBJS_DIR}, ${SRC_A:.asm=.o})
 OBJ			:= $(OBJ_C) $(OBJ_ASM)	# boot.o has to be first
 
 # RULES
@@ -30,12 +73,18 @@ $(NAME): $(OBJ)
 	$(LD) $(LDFLAGS) -o $@ $^
 
 # compile .c -> .o
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+# %.o: %.c
+# 	$(CC) $(CFLAGS) -c $< -o $@
+${OBJS_DIR}%.o: ${SRCS_DIR}%.c | ${OBJS_DIR}
+				@mkdir -p $(dir $@)
+				@${CC} ${CFLAGS} -c $< -o $@
 
 # compile .asm -> .o
-%.o: %.asm
-	$(ASM) $(ASMFLAGS) $< -o $@
+# %.o: %.asm
+# 	$(ASM) $(ASMFLAGS) $< -o $@
+${OBJS_DIR}%.o: ${SRCS_DIR}%.asm | ${OBJS_DIR}
+				@mkdir -p $(dir $@)
+				@${ASM} ${ASMFLAGS} $< -o $@
 
 # create .ISO bootable with GRUB
 iso: $(NAME)
@@ -53,5 +102,8 @@ fclean: clean
 	rm -f $(NAME) $(ISO) iso/boot/$(NAME)
 
 re: fclean all
+
+$(OBJS_DIR):
+	mkdir -p $@
 
 .PHONY: all iso run clean fclean re
