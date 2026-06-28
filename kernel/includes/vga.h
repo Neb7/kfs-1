@@ -13,6 +13,8 @@
 #ifndef VGA_H
 # define VGA_H
 
+# include "kernel.h"
+
 typedef struct	s_vga
 {
 	uint16_t	cursor_x;
@@ -22,6 +24,7 @@ typedef struct	s_vga
 }	t_vga;
 
 extern t_vga	g_screens[2];
+extern int		g_cur;
 
 void	switch_screen(int screen);
 void	scroll();

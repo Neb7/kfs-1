@@ -44,7 +44,7 @@ iso: $(NAME)
 
 # launch in QEMU / KVM
 run: iso
-	qemu-system-i386 -cdrom $(ISO)
+	qemu-system-i386 -cdrom $(ISO) -no-reboot
 
 clean: 
 	rm -f $(OBJ)

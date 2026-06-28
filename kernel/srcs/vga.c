@@ -6,7 +6,7 @@
 /*   By: vsyutkin <vsyutkin@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 15:22:40 by benpicar          #+#    #+#             */
-/*   Updated: 2026/06/28 16:43:39 by vsyutkin         ###   ########.fr       */
+/*   Updated: 2026/06/28 17:21:34 by vsyutkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	switch_screen(int screen)
 		return;
 	g_cur = screen;
 	ft_memcpy(vga, g_screens[screen].lines, sizeof(g_screens[screen].lines));
+	enable_cursor(0, 15);
 	update_cursor();
 }
 
@@ -32,7 +33,9 @@ void	scroll()
 	ft_memmove(vga_cur->lines[0], vga_cur->lines[1], sizeof(vga_cur->lines)
 		- sizeof(vga_cur->lines[0]));
 	vga_cur->cursor_y--;
-	ft_bzero(vga_cur->lines[24], sizeof(vga_cur->lines[24]));
+	for (int i = 0; i < 80; i++)
+		vga_cur->lines[24][i] = ((uint16_t)vga_cur->color << 8) | ' ';
 	ft_memcpy(vga, g_screens[g_cur].lines, sizeof(g_screens[g_cur].lines));
+	enable_cursor(0, 15);
 	update_cursor();
 }

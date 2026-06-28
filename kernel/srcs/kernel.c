@@ -111,13 +111,18 @@ void kernel_main(void)
 	// vga[1] = '2' << 8 | 0x0F;
 	idt_init();
 	pic_init();
-	idt_set_gate(33, (uint32_t)keyboard_stub, 0x08, 0x8E);
+	idt_set_gate(33, (uint32_t)keyboard_stub, 0x10, 0x8E);
 
 	__asm__ volatile ("sti");  // active les interruptions
 
 	ft_bzero(g_screens, sizeof(g_screens));
 	g_screens[0].color = 0x0F;
 	g_screens[1].color = 0x24;
+	for (int i = 0; i < 25 * 80; i++)
+	{
+		((uint16_t *)g_screens[0].lines)[i] = (0x0F << 8) | ' ';
+		((uint16_t *)g_screens[1].lines)[i] = (0x24 << 8) | ' ';
+	}
 	enable_cursor(0, 15);
 	putchar('4');
 	putchar('2');
