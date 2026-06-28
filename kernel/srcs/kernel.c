@@ -6,7 +6,7 @@
 /*   By: benpicar <benpicar@student.42mulhouse.fr > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 15:25:41 by benpicar          #+#    #+#             */
-/*   Updated: 2026/06/28 15:53:43 by benpicar         ###   ########.fr       */
+/*   Updated: 2026/06/28 16:20:57 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,31 @@ char scancode_map[128] = {
 
 void keyboard_handler()
 {
+	char	c;
 	uint8_t scancode = inb(0x60);
 
 	if (scancode & 0x80) {
 		// touche relâchée (bit 7 = 1), on ignore pour l'instant
-	} else {
-		char c = scancode_map[scancode];
-		if (c) putchar(c);
+	}
+	// else if (scancode == 0x0E) { // Backspace
+	// 	if (g_vga.cursor_x > 0)
+	// 	{
+	// 		g_vga.cursor_x--;
+	// 		putchar(' '); // efface le caractère à l'écran
+	// 		g_vga.cursor_x--;
+	// 	}
+	// }
+	else if (g_cur != 0 && scancode == 0x3B) // F1
+		g_cur = 0;
+	else if (g_cur != 1 && scancode == 0x3C) // F2
+		g_cur = 1;
+	else
+	{
+		c = scancode_map[scancode];
+		if (c)
+		{
+			putchar(c);
+		}
 	}
 
 	outb(0x20, 0x20);  // EOI — signale la fin de l'interruption au PIC
