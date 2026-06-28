@@ -12,21 +12,20 @@ typedef short				int16_t;
 typedef int					int32_t;
 typedef long long			int64_t;
 
-extern int cursor_x;
-extern int cursor_y;
+extern char scancode_map[128];
 
 struct idt_entry {
-    uint16_t base_low;   // bits 0-15 de l'adresse du handler
-    uint16_t selector;   // segment code (0x08 en général)
-    uint8_t  zero;       // toujours 0
-    uint8_t  flags;      // type + privilège
-    uint16_t base_high;  // bits 16-31 de l'adresse du handler
+	uint16_t base_low;   // bits 0-15 de l'adresse du handler
+	uint16_t selector;   // segment code (0x08 en général)
+	uint8_t  zero;	   // toujours 0
+	uint8_t  flags;	  // type + privilège
+	uint16_t base_high;  // bits 16-31 de l'adresse du handler
 } __attribute__((packed));
 
 struct idt_ptr
 {
-    uint16_t limit;
-    uint32_t base;
+	uint16_t limit;
+	uint32_t base;
 } __attribute__((packed));
 
 extern struct idt_entry idt[256];

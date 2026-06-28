@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   vga.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsyutkin <vsyutkin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benpicar <benpicar@student.42mulhouse.fr > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 05:06:55 by vsyutkin          #+#    #+#             */
-/*   Updated: 2023/10/29 19:05:04 by vsyutkin         ###   ########.fr       */
+/*   Created: 2026/06/28 15:07:56 by benpicar          #+#    #+#             */
+/*   Updated: 2026/06/28 15:26:11 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef VGA_H
+# define VGA_H
 
-// Checks if character is printable 
-int	ft_isprint(int c)
+typedef struct	s_vga
 {
-	if (c >= ' ' && c <= '~')
-		return (true);
-	return (false);
-}
+	uint16_t		cursor_x;
+	uint16_t		cursor_y;
+	char			lines[80][25];
+	const uint16_t	*vga;
+}	t_vga;
+
+extern t_vga	g_vga;
+
+#endif

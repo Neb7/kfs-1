@@ -6,15 +6,16 @@ ASM			:= nasm
 LD			:= ld
 
 # Flags gcc: 32-bit, sans stdlib, sans dépendances hôte
-CFLAGS		:= -m32 -fno-builtin -fno-stack-protector -nostdlib -nodefaultlibs -Wall -Wextra 
+INCLUDE		:= -I kernel/includes
+CFLAGS		:= -m32 -fno-builtin -fno-stack-protector -nostdlib -nodefaultlibs -Wall -Wextra $(INCLUDE)
 
 # Flag nasm: format ELF 32-bit (obligatory for the linker)
 ASMFLAGS 	:= -f elf32
 
 LDFLAGS		:= -m elf_i386 -T linker.ld
 
-SRC_C		:= $(wildcard src/*.c) $(wildcard src/libft/*.c)
-SRC_ASM		:= $(wildcard src/*.asm)
+SRC_C		:= $(wildcard kernel/*.c) $(wildcard kernel/libft/*.c)
+SRC_ASM		:= $(wildcard kernel/*.asm)
 
 OBJ_C		:= $(SRC_C:.c=.o)
 OBJ_ASM		:= $(SRC_ASM:.asm=.o)

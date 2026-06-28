@@ -1,39 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsyutkin <vsyutkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 06:31:15 by vsyutkin          #+#    #+#             */
-/*   Updated: 2023/10/29 14:53:25 by vsyutkin         ###   ########.fr       */
+/*   Created: 2023/10/17 01:56:32 by vsyutkin          #+#    #+#             */
+/*   Updated: 2023/10/29 19:05:04 by vsyutkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/* The  memcpy() function copies n bytes 
-from memory area src to memory area dest. 
-The memory areas must not overlap. 
-*/
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+// Checks if character is digit (aka number from 0 to 9) 
+int	ft_isdigit(int c)
 {
-	unsigned char		*dst;
-	const unsigned char	*srce;
-	size_t				i;
-
-	if (!src || !dest)
-		return (dest);
-	else
-	{
-		dst = dest;
-		srce = src;
-		i = 0;
-		while (i < n)
-		{
-			dst[i] = srce[i];
-			i++;
-		}
-		return (dest);
-	}
+	if (c >= '0' && c <= '9')
+		return (1 << 11); // true
+	return (false);
 }

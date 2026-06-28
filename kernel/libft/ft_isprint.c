@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsyutkin <vsyutkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 01:56:32 by vsyutkin          #+#    #+#             */
+/*   Created: 2023/10/17 05:06:55 by vsyutkin          #+#    #+#             */
 /*   Updated: 2023/10/29 19:05:04 by vsyutkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Checks if character is digit (aka number from 0 to 9) 
-int	ft_isdigit(int c)
+// Checks if character is printable 
+int	ft_isprint(int c)
 {
-	if (c >= '0' && c <= '9')
-		return (true);
+	if (c >= ' ' && c <= '~')
+		return (1 << 14); // true
 	return (false);
 }

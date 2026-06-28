@@ -12,13 +12,6 @@
 
 #include "libft.h"
 
-/* Welp, ft_strlcat but dest is empty. Version: lazyaf
-size_t	ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	dst[0] = "\0";
-	ft_strlcat(dst, src, size);
-} */
-
 // Welp, ft_strlcat but consider dest as empty. Version: Clean
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {

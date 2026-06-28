@@ -19,27 +19,28 @@ from the end so there is no overlapping between src or dest.
 */
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	unsigned char		*d;
-	const unsigned char	*s;
+	size_t	i;
 
 	if (!dest || !src)
-		return (dest);
-	else
+		return (NULL);
+	i = n;
+	if (dest > src && dest < src + n)
 	{
-		d = dest;
-		s = src;
-		if (d > s && d < s + n)
+		while (n % sizeof(long long) > 0)
 		{
-			d = d + n;
-			s = s + n;
-			while (n--)
-				*(--d) = *(--s);
+			((unsigned char *)dest)[i - 1] = ((unsigned char *)src)[i - 1];
+			n--;
+			i--;
 		}
-		else
+		i = i / sizeof(long long);
+		while (n > 0)
 		{
-			while (n--)
-				*d++ = *s++;
+			((long long *)dest)[i - 1] = ((long long *)src)[i - 1];
+			i--;
+			n = n - sizeof(long long);
 		}
-		return (dest);
 	}
+	else
+		ft_memcpy(dest, src, n);
+	return (dest);
 }

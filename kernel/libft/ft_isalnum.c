@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vsyutkin <vsyutkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 03:28:15 by vsyutkin          #+#    #+#             */
-/*   Updated: 2023/10/29 14:53:11 by vsyutkin         ###   ########.fr       */
+/*   Created: 2023/10/17 01:39:51 by vsyutkin          #+#    #+#             */
+/*   Updated: 2023/10/29 19:05:04 by vsyutkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Fills area of memory from *s with char c for n bytes. (bzero with extra step)
-void	*ft_memset(void *s, int c, size_t n)
+// Checks if character is digit (or number from 0 to 9) 
+// or alphebetic, either upper- or lower-case.
+int	ft_isalnum(int c)
 {
-	unsigned char	*p;
-
-	if (!s)
-		return (NULL);
-	p = s;
-	while (n--)
-		*p++ = (unsigned char)c;
-	return (s);
+	if (ft_isalpha(c) != false || ft_isdigit(c) != false)
+		return (1 << 3); // true
+	return (false);
 }

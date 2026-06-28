@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   vga.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vsyutkin <vsyutkin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: benpicar <benpicar@student.42mulhouse.fr > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 01:49:28 by vsyutkin          #+#    #+#             */
-/*   Updated: 2023/10/29 19:05:04 by vsyutkin         ###   ########.fr       */
+/*   Created: 2026/06/28 15:22:40 by benpicar          #+#    #+#             */
+/*   Updated: 2026/06/28 15:27:57 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "vga.h"
+#include "kernel.h"
 
-// Checks if character is from alphabet, either lower- or upper-case
-int	ft_isalpha(int c)
+t_vga	g_vga[2] = {{
+	.cursor_x = 0,
+	.cursor_y = 0,
+	.lines = {{0}},
+	.vga = (uint16_t*)0xB8000
+},
 {
-	if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
-		return (true);
-	return (false);
-}
+	.cursor_x = 0,
+	.cursor_y = 0,
+	.lines = {{0}},
+	.vga = (uint16_t*)0xB8000
+}};
