@@ -13,7 +13,7 @@ ASMFLAGS 	:= -f elf32
 
 LDFLAGS		:= -m elf_i386 -T linker.ld
 
-SRC_C		:= $(wildcard src/*.c)
+SRC_C		:= $(wildcard src/*.c) $(wildcard src/libft/*.c)
 SRC_ASM		:= $(wildcard src/*.asm)
 
 OBJ_C		:= $(SRC_C:.c=.o)

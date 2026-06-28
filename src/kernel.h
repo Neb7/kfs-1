@@ -1,6 +1,17 @@
 #ifndef KERNEL_H
 # define KERNEL_H
 
+# include "libft/libft.h"
+
+typedef unsigned char		uint8_t;
+typedef unsigned short		uint16_t;
+typedef unsigned int		uint32_t;
+typedef unsigned long long	uint64_t;
+typedef signed char			int8_t;
+typedef short				int16_t;
+typedef int					int32_t;
+typedef long long			int64_t;
+
 extern int cursor_x;
 extern int cursor_y;
 
@@ -27,13 +38,15 @@ extern struct idt_ptr   idtp;
 #define PIC2_DATA 0xA1
 
 void outb(uint16_t port, uint8_t val);
-void inb(uint16_t port);
+uint8_t inb(uint16_t port);
 void pic_init();
 void idt_set_gate(uint8_t num, uint32_t base, uint16_t selector, uint8_t flags);
 void idt_init();
 void enable_cursor(uint8_t top, uint8_t bottom);
 void update_cursor();
+extern void keyboard_stub(void);
 void putchar(char c);
+int  kprintf(const char *fmt, ...);
 void kernel_main(void);
 
 #endif
