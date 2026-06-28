@@ -6,7 +6,7 @@
 /*   By: benpicar <benpicar@student.42mulhouse.fr > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 15:07:56 by benpicar          #+#    #+#             */
-/*   Updated: 2026/06/28 15:51:05 by benpicar         ###   ########.fr       */
+/*   Updated: 2026/06/28 16:37:06 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ typedef struct	s_vga
 	uint8_t		color;
 }	t_vga;
 
-extern t_vga	g_vga;
+extern t_vga	g_screens[2];
+
+void	switch_screen(int screen);
+void	scroll();
 
 #endif

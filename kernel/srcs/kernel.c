@@ -6,7 +6,7 @@
 /*   By: benpicar <benpicar@student.42mulhouse.fr > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 15:25:41 by benpicar          #+#    #+#             */
-/*   Updated: 2026/06/28 16:20:57 by benpicar         ###   ########.fr       */
+/*   Updated: 2026/06/28 16:39:08 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void keyboard_handler()
 	// 	}
 	// }
 	else if (g_cur != 0 && scancode == 0x3B) // F1
-		g_cur = 0;
+		switch_screen(0);
 	else if (g_cur != 1 && scancode == 0x3C) // F2
-		g_cur = 1;
+		switch_screen(1);
 	else
 	{
 		c = scancode_map[scancode];
@@ -65,7 +65,7 @@ void enable_cursor(uint8_t top, uint8_t bottom)
 
 void update_cursor()
 {
-	uint16_t pos = g_vga.cursor_y * 80 + g_vga.cursor_x;
+	uint16_t pos = g_screens[g_cur].cursor_y * 80 + g_screens[g_cur].cursor_x;
 	outb(0x3D4, 14);
 	outb(0x3D5, pos >> 8);
 	outb(0x3D4, 15);
@@ -80,6 +80,10 @@ void putchar(char c)
 	{
 		vga_cur->cursor_x = 0;
 		vga_cur->cursor_y++;
+		if (vga_cur->cursor_y >= 25)
+		{
+			scroll();
+		}
 	}
 	else
 	{
@@ -90,6 +94,10 @@ void putchar(char c)
 		{   // retour à la ligne automatique
 			vga_cur->cursor_x = 0;
 			vga_cur->cursor_y++;
+			if (vga_cur->cursor_y >= 25)
+			{
+				scroll();
+			}
 		}
 	}
 	update_cursor();  // ← synchronise le curseur matériel après chaque modif
@@ -107,7 +115,7 @@ void kernel_main(void)
 
 	__asm__ volatile ("sti");  // active les interruptions
 
-	ft_bzero(g_screens, sizeof(g_screens) * 2);
+	ft_bzero(g_screens, sizeof(g_screens));
 	g_screens[0].color = 0x0F;
 	g_screens[1].color = 0x24;
 	enable_cursor(0, 15);

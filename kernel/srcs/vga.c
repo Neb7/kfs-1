@@ -6,7 +6,7 @@
 /*   By: benpicar <benpicar@student.42mulhouse.fr > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 15:22:40 by benpicar          #+#    #+#             */
-/*   Updated: 2026/06/28 16:24:49 by benpicar         ###   ########.fr       */
+/*   Updated: 2026/06/28 16:38:45 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,18 @@ void	switch_screen(int screen)
 	if (screen < 0 || screen > 1)
 		return;
 	g_cur = screen;
-	ft_memcpy(vga, g_screens[screen].lines, g_screens[screen].cursor_y * 80
-			* g_screen_cursor_x * sizeof(uint16_t));
+	ft_memcpy(vga, g_screens[screen].lines, sizeof(g_screens[screen].lines));
 	update_cursor();
 }
 
-// t_vga	g_vga[2] = {{
-// 		.cursor_x = 0,
-// 		.cursor_y = 0,
-// 		.lines = {{0}},
-// 	},
-// 	{
-// 		.cursor_x = 0,
-// 		.cursor_y = 0,
-// 		.lines = {{0}},
-// 	}
-// };
+void	scroll()
+{
+	t_vga *vga_cur = &g_screens[g_cur];
+	size_t i, j;
+
+	ft_memmove(vga_cur->lines[0], vga_cur->lines[1], sizeof(vga_cur->lines)
+		- sizeof(vga_cur->lines[0]));
+	vga_cur->cursor_y--;
+	ft_memcpy(vga, g_screens[g_cur].lines, sizeof(g_screens[g_cur].lines));
+	update_cursor();
+}
