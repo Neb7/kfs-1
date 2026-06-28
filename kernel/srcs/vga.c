@@ -6,22 +6,24 @@
 /*   By: benpicar <benpicar@student.42mulhouse.fr > +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/28 15:22:40 by benpicar          #+#    #+#             */
-/*   Updated: 2026/06/28 15:27:57 by benpicar         ###   ########.fr       */
+/*   Updated: 2026/06/28 15:44:19 by benpicar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vga.h"
 #include "kernel.h"
 
-t_vga	g_vga[2] = {{
-	.cursor_x = 0,
-	.cursor_y = 0,
-	.lines = {{0}},
-	.vga = (uint16_t*)0xB8000
-},
-{
-	.cursor_x = 0,
-	.cursor_y = 0,
-	.lines = {{0}},
-	.vga = (uint16_t*)0xB8000
-}};
+t_vga	g_screens[2];
+int		g_cur = 0;
+
+// t_vga	g_vga[2] = {{
+// 		.cursor_x = 0,
+// 		.cursor_y = 0,
+// 		.lines = {{0}},
+// 	},
+// 	{
+// 		.cursor_x = 0,
+// 		.cursor_y = 0,
+// 		.lines = {{0}},
+// 	}
+// };

@@ -13,6 +13,7 @@ typedef int					int32_t;
 typedef long long			int64_t;
 
 extern char scancode_map[128];
+extern uint16_t *vga;
 
 struct idt_entry {
 	uint16_t base_low;   // bits 0-15 de l'adresse du handler
